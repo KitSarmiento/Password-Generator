@@ -1,5 +1,6 @@
 // Assignment code here
-//variables has been assigned and convert arrays to a string.
+
+//Password variables has been assigned and convert arrays to a string.
 var upperCaseChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var upperCaseArr = upperCaseChar.split("");
 console.log(upperCaseArr);
@@ -16,14 +17,14 @@ var specialChar = "!@#$%^&*()-=_+[]{}|;:,.<>?";
 var specialCharArr = specialChar.split("");
 console.log(specialCharArr);
 
-//This is where the prompts starts.
+//Used if statement for the user inputs to determin their preferred characters.
 function generatePasswordPrompts() {
   var passwordLength = parseInt(
     prompt("Enter your password between 8 - 128 characters.")
   );
 
   if (passwordLength < 8 || passwordLength > 128) {
-    alert("Please only provide number between 8 to 128 characters.");
+    alert("Please only provide numbers between 8 to 128 characters.");
     return null;
   }
 
@@ -47,7 +48,9 @@ function generatePasswordPrompts() {
     hasNumber === false &&
     hasSpecialChar === false
   ) {
-    alert("Please choose at least one characters to include to your password");
+    alert(
+      "Please choose at least one type of characters to include to your password"
+    );
     return null;
   }
   var passwordPrompts = {
@@ -60,17 +63,30 @@ function generatePasswordPrompts() {
   return passwordPrompts;
 }
 
-//this is the codes to generate random password
-function generateRandom(arr) {
-  var randomIndex = Math.floor(Math.random() * arr.length);
-  var randomElement = arr[randomIndex];
-  return randomElement;
-}
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 function generatePassword() {
   var options = generatePasswordPrompts();
+
+  //Empty array for the password variables or charaacters
+  var passwordDisplay = [];
+
+  //Concatonate the concat the variables and place it to the empty array
+  if (options.hasUpper) passwordDisplay = passwordDisplay.concat(upperCaseArr);
+  if (options.hasLower) passwordDisplay = passwordDisplay.concat(lowerCaseArr);
+  if (options.hasNumber) passwordDisplay = passwordDisplay.concat(numberArr);
+  if (options.hasSpecial)
+    passwordDisplay = passwordDisplay.concat(specialCharArr);
+
+  //Generate random password and issue the lenght specified by the user
+  var password = "";
+
+  for (var i = 0; i < options.length; i++) {
+    var randomPassword = Math.floor(Math.random() * passwordDisplay.length);
+    password = password + passwordDisplay[randomPassword];
+  }
+
+  return password;
 }
 
 // Write password to the #password input
@@ -83,6 +99,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-//call random function
-//arrays
