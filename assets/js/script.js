@@ -20,7 +20,7 @@ console.log(specialCharArr);
 //Used if statement for the user inputs to determin their preferred characters.
 function generatePasswordPrompts() {
   var passwordLength = parseInt(
-    prompt("Enter your password between 8 - 128 characters.")
+    prompt("Enter your preferred length password between 8 to 128 characters")
   );
 
   if (passwordLength < 8 || passwordLength > 128) {
@@ -33,7 +33,7 @@ function generatePasswordPrompts() {
   );
 
   var hasLowerCase = confirm(
-    "Would you like to have an lowercase in your password?"
+    "Would you like to have a lowercase in your password?"
   );
 
   var hasNumber = confirm("Would you like to have a number in your password?");
